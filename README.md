@@ -26,11 +26,11 @@ This repository contains codes of many video frame selection strategies
 
 1.  Clone the specific branchs with
 ```
-git clone https://gitee.com/JasonZuu/FSS.git
+git clone https://github.com/JasonZuu/Frame-Selection.git
 ```
 2.  Move to the program directory with
 ```
-cd ./FSS
+cd ./Frame-Selection
 ```
 3. Run the demo.py file directly in your python IDE or in the shell with
 ```
