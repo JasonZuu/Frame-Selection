@@ -13,8 +13,8 @@ This repository contains codes of many video frame selection strategies
 + strategy
   
 #### Development Plan
-- [ ] Develop API and API document
 - [ ] Develop evaluation methods for each strategy
+- [ ] Develop API and API document
 - [ ] Develop OOD-based scores and strategy
 
 
