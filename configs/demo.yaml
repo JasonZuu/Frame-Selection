@@ -1,0 +1,33 @@
+# Strategy
+strategy_params:
+  score_key: "uniform"
+  strategy_key: "normal"
+  score_img_shape: [300, 300]
+
+# Evaluation
+facetool_params:
+  weights_path: "data/weights/dbface/dbface.pth"
+  device: "cuda:0"
+  face_shape: [224, 224]
+
+model_params:
+  key: "man"
+  weights_path: "data/weights/teacher/man.pth"
+  num_classes: 2
+  device: &eval_model_device "cuda:0"
+
+eval_params:
+  key: "mae"
+  device: *eval_model_device
+
+# Running
+running_params:
+  group_size: 10
+  frac: 0.05
+
+
+
+
+
+
+

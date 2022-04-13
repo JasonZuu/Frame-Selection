@@ -13,7 +13,7 @@ class UniformScore(BaseScore):
 
     def score_frame(self,
                     video_cap: cv2.VideoCapture,
-                    group_size: int=2,
+                    group_size=2,
                     transforms=None,
                     **kwargs) -> list:
         assert group_size > 1

@@ -1,27 +1,29 @@
+from re import S
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torchvision import transforms
 
 from registry import Registries
+from utils import PullFaceTool
 
 from .base_eval import BaseEval
 
 
 @Registries.evaluation.register("mae")
 class MAEEval(BaseEval):
-    def __init__(self, model:nn.modules):
-        super().__init__()
-        self.model = model
-        self.trans = transforms.Compose([
-                                transforms.ToTensor(),
-                                transforms.Resize((224, 224))
-        ])
-
-    def eval_score(self, frames: list, labels:torch.Tensor, trans=None) -> float:
-        if trans is not None:
-            self.trans = trans
-        data = self.trans(frames)
-        out = self.model(data)
-        mae_score = F.l1_loss(out, labels, reduction="mean")
-        return float(mae_score)
+    def eval_score(self, frames: list, label: int, trans=None) -> float:
+        assert label in (0, 1), "label must be either 0 or 1"
+        score = 0
+        for frame in frames:
+            faces = self.face_tool.pull_faces_tensor(frame)
+            labels = torch.Tensor([label for i in range(faces.shape[0])])
+            labels = labels.int().to(self.device)
+            faces = faces.to(self.device)
+            out = self.model(faces)
+            out = F.softmax(out, dim=1)
+            logits = out.max(1).values
+            mae_score = F.l1_loss(logits, labels, reduction="mean")
+            score += float(mae_score)
+        score = score / len(frames)
+        return float(score)

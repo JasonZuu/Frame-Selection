@@ -2,7 +2,9 @@
 
 MODULES = [
     ("score", ["*"]),
-    ("strategy", ["*"])
+    ("strategy", ["*"]),
+    ("evaluation", ["*"]),
+    ("models", ["*"])
 ]
 
 # you can also specify modules you want to use

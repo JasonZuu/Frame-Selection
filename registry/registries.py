@@ -17,7 +17,7 @@ class Registries():  # pylint: disable=invalid-name, too-few-public-methods
     score = Registry("flow_score") # score the importance of a frame
     strategy = Registry("strategy") # the strategy used to select frame
     evaluation = Registry("evaluation") # evaluating method for each strategy
-
+    model = Registry("model") # models for evaluating
 
     @classmethod
     def import_all_modules(cls):

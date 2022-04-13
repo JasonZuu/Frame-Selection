@@ -1,3 +1,3 @@
-from .transforms import Transforms
+from .transforms import NumpyTransforms
 from .normalize import norm
 from .faces import PullFaceTool

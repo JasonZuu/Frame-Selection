@@ -31,7 +31,10 @@ class BaseScore:
                                 group_size = None,
                                 transforms = None,
                                 **kwargs):
-        datas = self.score_frame(video_cap, group_size, transforms, **kwargs)
+        if group_size is not None:
+            datas = self.score_frame(video_cap, group_size, transforms, **kwargs)
+        else:
+            datas = self.score_frame(video_cap, transforms=transforms, **kwargs)
         normalized_datas = self._normalize(datas)
         return normalized_datas
 
