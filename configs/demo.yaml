@@ -1,8 +1,14 @@
+# Data Loader
+dataloader_params:
+  data_csv_path: "data/datasets/celeb/data.csv"
+  num_workers: 1
+  pin_memory: False
+
 # Strategy
 strategy_params:
   score_key: "uniform"
   strategy_key: "normal"
-  score_img_shape: [300, 300]
+  score_img_shape: [128, 128]
 
 # Evaluation
 facetool_params:

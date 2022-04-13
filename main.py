@@ -5,6 +5,7 @@ import torch
 
 from registry import Registries
 from utils import NumpyTransforms, PullFaceTool
+from dataloader import MyDataLoader
 
 
 parser = argparse.ArgumentParser(
@@ -25,7 +26,7 @@ with open(args.filename, 'r') as file:
 Registries.import_all_modules()
 
 # videos and labels
-video_path = "data/datasets/celeb/fake/id0_id1_0000.mp4"
+data_loader = MyDataLoader(**config["dataloader_params"])
 
 # Set up Strategy
 Score = Registries.score[config["strategy_params"]["score_key"]]()
@@ -42,8 +43,16 @@ Eval = Registries.evaluation[config["eval_params"]["key"]](
 
 # Running
 print("------------------Start Evaluating----------------------")
-Strategy.get_datas(
-    video_path, group_size=config["running_params"]["group_size"], transforms=trans)
-frames = Strategy(config["running_params"]["frac"])
-score = Eval(frames, label=1)
-print(score)
+scores = 0
+data_count = data_loader.data_count()
+for i_batch, (video_path, label) in enumerate(data_loader.get_dataloader()):
+    video_path = video_path[0]
+    label = int(label)
+    print(f"Processing {i_batch+1}/{data_count} video", end="\r")
+    Strategy.get_datas(
+        video_path, group_size=config["running_params"]["group_size"], transforms=trans)
+    frames = Strategy(config["running_params"]["frac"])
+    score = Eval(frames, label=label)
+    scores += score
+scores /= data_count
+print(scores)
