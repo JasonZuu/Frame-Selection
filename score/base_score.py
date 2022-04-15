@@ -64,5 +64,5 @@ class BaseScore:
 
         
     def __call__(self, *args, **kwds):
-        return self.normalized_score_frame(*args, **kwds)
+        return self.score_frame(*args, **kwds)
     

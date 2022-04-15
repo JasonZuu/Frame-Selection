@@ -23,7 +23,7 @@ class PullFaceTool:
         self.tensor_transforms = transforms.Compose([
             transforms.ToTensor(),
             transforms.Resize(self.face_shape),
-            transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
+            # transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
         ])
 
     def pull_faces_numpy(self, image, size_threshold=10) -> np.ndarray:
@@ -43,6 +43,8 @@ class PullFaceTool:
         for bbox in bboxs:
             x, y, r, b = intv(bbox.box)
             cropped = image[y:b, x:r]
+            # cv2.imshow("test", cropped)
+            # cv2.waitKey(0)
             if cropped.size > size_threshold*3:
                 face = self.tensor_transforms(cropped)
                 face = face.view(-1, *face.shape)

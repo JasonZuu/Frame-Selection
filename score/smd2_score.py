@@ -16,33 +16,19 @@ class SMD2Score(BaseScore):
         super().__init__(**kwargs)
         self.smd2_conv = SMD2_Conv2d()
     
-    def _score_for_one_group(self, frame_group)->list:
-        scores = []
-        for frame in frame_group:
-            frame = torch.Tensor(frame/255.0)
-            score = self.smd2_conv(frame)
-            scores.append(float(score))
-        return norm(scores)
-    
     def score_frame(self,
                     video_cap: cv2.VideoCapture,
-                    group_size: int=2,
                     transforms=None,
                     **kwargs) -> list:
-        assert group_size > 1
         scores = []
         frame_count = int(video_cap.get(cv2.CAP_PROP_FRAME_COUNT))
         for i_frame in range(frame_count):
             success, frame = video_cap.read()
             if transforms is not None:
                 frame = transforms(frame)
-            if i_frame == 0:
-                group = []
-            elif i_frame%group_size == 0:
-                ssim_scores = self._score_for_one_group(group)
-                scores.extend(ssim_scores)
-                group = []
-            group.append(frame)
+            frame = torch.Tensor(frame/255.0)
+            score = self.smd2_conv(frame)
+            scores.append(score)
         datas = [{"index":i_frame,
                   "score":scores[i_frame]} for i_frame in range(len(scores))]
         datas = self._sort_score(datas)

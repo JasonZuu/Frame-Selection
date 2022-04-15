@@ -18,7 +18,7 @@ def get_dataset_format(data_dir:str) -> pd.DataFrame:
     return df
 
 if __name__ == "__main__":
-    data_dir = "data/datasets/celeb"
-    save_csv_path = "data/datasets/celeb/data.csv"
+    data_dir = "data/datasets/FF++/c23"
+    save_csv_path = "data/datasets/FF++/c23/data.csv"
     df = get_dataset_format(data_dir)
     df.to_csv(save_csv_path, index=False)

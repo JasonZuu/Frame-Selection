@@ -1,14 +1,14 @@
 # Data Loader
 dataloader_params:
-  data_csv_path: "data/datasets/celeb/data.csv"
-  num_workers: 1
+  data_csv_path: "data/datasets/FF++/cbr/data.csv"
+  num_workers: 4
   pin_memory: False
 
 # Strategy
 strategy_params:
-  score_key: "uniform"
+  score_key: "random"
   strategy_key: "normal"
-  score_img_shape: [128, 128]
+  score_img_shape: [64, 64]
 
 # Evaluation
 facetool_params:
@@ -23,13 +23,13 @@ model_params:
   device: &eval_model_device "cuda:0"
 
 eval_params:
-  key: "mae"
+  key: "precision"
   device: *eval_model_device
 
 # Running
 running_params:
-  group_size: 10
-  frac: 0.05
+  group_size: 25
+  frac: 0.04
 
 
 

@@ -44,6 +44,7 @@ Eval = Registries.evaluation[config["eval_params"]["key"]](
 # Running
 print("------------------Start Evaluating----------------------")
 scores = 0
+unused_video_count = 0
 data_count = data_loader.data_count()
 for i_batch, (video_path, label) in enumerate(data_loader.get_dataloader()):
     video_path = video_path[0]
@@ -52,7 +53,14 @@ for i_batch, (video_path, label) in enumerate(data_loader.get_dataloader()):
     Strategy.get_datas(
         video_path, group_size=config["running_params"]["group_size"], transforms=trans)
     frames = Strategy(config["running_params"]["frac"])
+    if len(frames) == 0:
+        unused_video_count += 1
+        continue
     score = Eval(frames, label=label)
     scores += score
-scores /= data_count
-print(scores)
+    torch.cuda.empty_cache()
+if data_count == unused_video_count:
+    print("no valid video")
+else:
+    scores /= data_count-unused_video_count
+    print(scores)

@@ -190,9 +190,12 @@ class Xception(nn.Module):
         return loss
 
 @Registries.model.register("xception")
-def get_xception(num_classes, weight_path: str = None, **kwargs) -> Xception:
+def get_xception(num_classes, weight_path: str = None, device="cpu",**kwargs) -> Xception:
     model = Xception(num_classes=num_classes)
+    device = torch.device(device)
     if weight_path is not None:
         checkpoint = torch.load(weight_path)
         model.load_state_dict(checkpoint, strict=False)
+    model.to(device)
+    model.eval()
     return model
