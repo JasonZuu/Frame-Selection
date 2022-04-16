@@ -49,7 +49,7 @@ data_count = data_loader.data_count()
 for i_batch, (video_path, label) in enumerate(data_loader.get_dataloader()):
     video_path = video_path[0]
     label = int(label)
-    print(f"Processing {i_batch+1}/{data_count} video", end="\r")
+    print(f"Processing {i_batch+1}/{data_count} video", end=":\t")
     Strategy.get_datas(
         video_path, group_size=config["running_params"]["group_size"], transforms=trans)
     frames = Strategy(config["running_params"]["frac"])
@@ -58,6 +58,7 @@ for i_batch, (video_path, label) in enumerate(data_loader.get_dataloader()):
         continue
     score = Eval(frames, label=label)
     scores += score
+    print(scores)
     torch.cuda.empty_cache()
 if data_count == unused_video_count:
     print("no valid video")

@@ -19,10 +19,11 @@ class PrecisionEval(BaseEval):
             if faces is None:
                 continue
             labels = torch.Tensor([label for i in range(faces.shape[0])])
-            labels = labels.int().to(self.device)
             faces = faces.to(self.device)
             out = self.model(faces)
+            out = out.detach().cpu()
             prec_score = (out.argmax(1) == labels).sum()/len(labels)
             score += prec_score
-        score = score / len(frames)
-        return float(score)
+        if score != 0:
+            score = score.detach().cpu() / len(frames)
+        return 1.0 if score > 0.5 else 0.0

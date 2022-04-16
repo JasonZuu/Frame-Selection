@@ -1,12 +1,12 @@
 # Data Loader
 dataloader_params:
-  data_csv_path: "data/datasets/FF++/cbr/data.csv"
+  data_csv_path: "data/datasets/IF_video/data.csv"
   num_workers: 4
   pin_memory: False
 
 # Strategy
 strategy_params:
-  score_key: "random"
+  score_key: "uniform"
   strategy_key: "normal"
   score_img_shape: [64, 64]
 
@@ -17,8 +17,8 @@ facetool_params:
   face_shape: [224, 224]
 
 model_params:
-  key: "man"
-  weights_path: "data/weights/teacher/man.pth"
+  key: "xception"
+  weights_path: "data/weights/teacher/xception.pth"
   num_classes: 2
   device: &eval_model_device "cuda:0"
 
@@ -28,8 +28,8 @@ eval_params:
 
 # Running
 running_params:
-  group_size: 25
-  frac: 0.04
+  group_size: 20
+  frac: 0.05
 
 
 
