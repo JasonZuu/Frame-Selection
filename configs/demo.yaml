@@ -17,8 +17,8 @@ facetool_params:
   face_shape: [224, 224]
 
 model_params:
-  key: "xception"
-  weights_path: "data/weights/teacher/xception.pth"
+  key: "mobilenetv2"
+  weights_path: "data/weights/student/mobilenetv2_distill.pth"
   num_classes: 2
   device: &eval_model_device "cuda:0"
 
@@ -29,7 +29,7 @@ eval_params:
 # Running
 running_params:
   group_size: 20
-  frac: 0.05
+  frac: 1.0
 
 
 

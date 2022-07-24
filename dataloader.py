@@ -26,7 +26,7 @@ class MyDataLoader:
                  pin_memory: bool = False,
                  **kwargs):
         super().__init__()
-        self.data = pd.read_csv(data_csv_path)
+        self.data = pd.read_csv(data_csv_path)[:100]
         self.num_workers = num_workers
         self.pin_memory = pin_memory
         self.dataset = VideoDataset(self.data)

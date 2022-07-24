@@ -2,6 +2,7 @@ import cv2
 import argparse
 import yaml
 import torch
+import time
 
 from registry import Registries
 from utils import NumpyTransforms, PullFaceTool
@@ -43,6 +44,7 @@ Eval = Registries.evaluation[config["eval_params"]["key"]](
 
 # Running
 print("------------------Start Evaluating----------------------")
+start_time = time.time()
 scores = 0
 unused_video_count = 0
 data_count = data_loader.data_count()
@@ -65,3 +67,6 @@ if data_count == unused_video_count:
 else:
     scores /= data_count-unused_video_count
     print(scores)
+end_time = time.time()
+span_time = end_time - start_time
+print(f"Lasting for {span_time} second")
