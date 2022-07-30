@@ -1,0 +1,39 @@
+# Data Loader
+dataloader_params:
+  data_csv_path: "data/datasets/IF_video/data.csv"
+  num_workers: 4
+  pin_memory: False
+
+# Strategy
+strategy_params:
+  score_key: "uniform"
+  strategy_key: "normal"
+  score_img_shape: [64, 64]
+
+# Evaluation
+facetool_params:
+  weights_path: "data/weights/dbface/dbface.pth"
+  device: "cuda:0"
+  face_shape: [224, 224]
+
+model_params:
+  key: "mobilenetv2"
+  weights_path: "data/weights/student/mobilenetv2_distill.pth"
+  num_classes: 2
+  device: &eval_model_device "cuda:0"
+
+eval_params:
+  key: "precision"
+  device: *eval_model_device
+
+# Running
+running_params:
+  group_size: 20
+  frac: 1.0
+
+
+
+
+
+
+
