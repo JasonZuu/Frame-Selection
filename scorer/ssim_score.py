@@ -4,7 +4,7 @@ from skimage.metrics import structural_similarity
 
 from registry import Registries
 
-from .base_score import BaseScore
+from .base_scorer import BaseScore
 
 
 @Registries.score.register("ssim")

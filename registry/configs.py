@@ -1,10 +1,7 @@
 # all MODULES
 
 MODULES = [
-    ("score", ["*"]),
-    ("strategy", ["*"]),
-    ("evaluation", ["*"]),
-    ("models", ["*"])
+    ("scorer", ["*"])
 ]
 
 # you can also specify modules you want to use

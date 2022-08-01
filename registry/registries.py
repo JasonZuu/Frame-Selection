@@ -14,10 +14,7 @@ class Registries():  # pylint: disable=invalid-name, too-few-public-methods
     def __init__(self):
         raise RuntimeError("Registries is not intended to be instantiated")
     
-    score = Registry("flow_score") # score the importance of a frame
-    strategy = Registry("strategy") # the strategy used to select frame
-    evaluation = Registry("evaluation") # evaluating method for each strategy
-    model = Registry("model") # models for evaluating
+    scorer = Registry("scorer") # score the importance of a frame
 
     @classmethod
     def import_all_modules(cls):

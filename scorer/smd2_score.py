@@ -7,7 +7,7 @@ import torch.nn.functional as F
 from registry import Registries
 from utils import norm
 
-from .base_score import BaseScore
+from .base_scorer import BaseScore
 
 
 @Registries.score.register("smd2")
@@ -20,6 +20,7 @@ class SMD2Score(BaseScore):
                     video_cap: cv2.VideoCapture,
                     transforms=None,
                     **kwargs) -> list:
+        assert self.group_size > 1, f"the group size for {self.__class__.__name__} should be greater than 1"
         scores = []
         frame_count = int(video_cap.get(cv2.CAP_PROP_FRAME_COUNT))
         for i_frame in range(frame_count):
