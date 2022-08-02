@@ -10,11 +10,12 @@ class BaseScorer:
         super().__init__()
         self.scores = None
     
-    def reset(self, frames:list, video_infos:dict, group_size:int=1):
+    def reset(self, frames:list, video_infos:dict, group_size:int=1, resize_shape:tuple=(64, 64)):
         self.frames = frames
         self.video_infos = video_infos
         self.scores = []
         self.group_size = group_size
+        self.resize_shape = resize_shape
 
     @abstractmethod
     def score_frame(self, 
@@ -61,7 +62,7 @@ class TestScorer(TestCase):
         super().__init__(methodName)
         self.cap = cap
         self.scorer = scorer
-        self.tested_name = "Capturer"
+        self.tested_name = "Scorer"
 
     def test_reset(self):
         print(
@@ -69,7 +70,7 @@ class TestScorer(TestCase):
         test_video_path = "my_unittest/test.mp4"
         self.cap.reset()
         frames, infos = self.cap.extract_frame(test_video_path)
-        self.scorer.reset(frames, infos, group_size=24)
+        self.scorer.reset(frames, infos, group_size=24, resize_shape=(64,64))
 
     def test_score_frame(self):
         print(

@@ -21,7 +21,8 @@ class FrameDifferenceScorer(BaseScorer):
                 data = {"index": idx,
                         "score": 255.0}
             else:
-                frame_last, frame = self.frames[idx-1], self.frames[idx]
+                frame_last = cv2.resize(self.frames[idx-1], self.resize_shape)
+                frame = cv2.resize(self.frames[idx], self.resize_shape)
                 score = np.abs(frame_last-frame).mean()
                 data = {"index": idx,
                         "score": score}
@@ -47,10 +48,11 @@ class FrameDifferenceScorer(BaseScorer):
         return datas
 
     def _group_score_function(self, idx_group: list) -> list:
-        ref_frame = self.frames[idx_group[0]]
+        ref_frame = cv2.resize(self.frames[idx_group[0]], self.resize_shape)
         scores = [0.0]
         for i_frame in range(1, len(idx_group)):
-            scored_frame = self.frames[idx_group[i_frame]]
+            scored_frame = cv2.resize(
+                self.frames[idx_group[i_frame]], self.resize_shape)
             score = np.abs(ref_frame-scored_frame).mean()
             scores.append(score)
         return scores
