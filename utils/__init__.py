@@ -1,3 +1,2 @@
-from .transforms import NumpyTransforms
-from .normalize import norm
+from .math import factorial, unitize
 from .faces import PullFaceTool

@@ -15,6 +15,7 @@ class Registries():  # pylint: disable=invalid-name, too-few-public-methods
         raise RuntimeError("Registries is not intended to be instantiated")
     
     scorer = Registry("scorer") # score the importance of a frame
+    critor = Registry("critor") # evaluate the selection
 
     @classmethod
     def import_all_modules(cls):

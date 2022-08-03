@@ -1,28 +1,26 @@
 # Frame Selection Strategy
 
 ## Description
-This repository contains codes of many video frame selection strategies
+This project is for selecting frame of all kinds of videos based on multiple frame scoring policy. Aims at accerlating the pre-processing step of Computer Vision works, we integrated different frame selection policies and developed this flexible and fast frame selection lab.
 
-#### Purpose
-+ Developed a useful tool that can extract frame from videos in a flexible way.
+### Purpose
++ Developed a useful tool for extracting frame from videos in a flexible way.
 + An extensible architecture following Registry Mode for further development.
++ Visuable exhibition of the selection result.
 
-#### Project Architecture
+### Project Architecture
 + registry: contain source code for registries and their configs
 + score
 + strategy
-  
-#### Development Plan
-- [ ] Develop evaluation methods for each strategy
+
+### Development Plan
+- [x] Develop evaluation methods for each strategy
 - [ ] Develop API and API document
 - [ ] Develop OOD-based scores and strategy
 
 
 ## Using Guidance
-
-#### Reliance
-
-#### Quick Run
+### Quick Run
 
 1.  Clone the specific branchs with
 ```
@@ -37,9 +35,19 @@ cd ./Frame-Selection
 python demo.py
 ```
 4. Change the varibale in demo.py and run it again.
-#### More Flexible Way
+
+### More Flexible Way
 
 
-## API
+## Document
+
+### Basic Descrip of modules
+![Relationship between different modules](img/fs_modules.jpg)
+
+
+### API
+
+
+
 
 
