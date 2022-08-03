@@ -20,20 +20,24 @@ class SSIMScorer(BaseScorer):
             scores.append(score)
         return scores
 
-    def score_frame(self, sort: bool = True, unitized: bool = True) -> list:
+    def score_frame(self,
+                    group_size: int = 1,
+                    resize_shape: tuple = (64, 64),
+                    sort: bool = True,
+                    unitized: bool = True) -> list:
         assert self.scores is not None and self.scores == [], "please call reset first"
-        assert self.group_size > 1, f"the group size for {self.__class__.__name__} should be greater than 1"
+        assert group_size > 1, f"the group size for {self.__class__.__name__} should be greater than 1"
 
         scores = []
         frame_count = len(self.frames)
         for i_frame in range(frame_count):
             frame = self.frames[i_frame]
             frame = cv2.cvtColor(self.frames[i_frame], cv2.COLOR_BGR2GRAY)
-            frame = cv2.resize(frame, self.resize_shape)
+            frame = cv2.resize(frame, resize_shape)
             
             if i_frame == 0:
                 group = []
-            elif i_frame % self.group_size == 0:
+            elif i_frame % group_size == 0:
                 ssim_scores = self._score_for_one_group(group)
                 scores.extend(ssim_scores)
                 group = []

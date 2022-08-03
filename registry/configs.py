@@ -1,7 +1,8 @@
 # all MODULES
 
 MODULES = [
-    ("scorer", ["*"])
+    ("scorer", ["*"]),
+    ("critor", ["*"])
 ]
 
 # you can also specify modules you want to use

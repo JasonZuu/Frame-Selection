@@ -7,17 +7,16 @@ from unittest import TestCase
 
 class Capturer:
     def __init__(self, *args, **kwargs):
-        self.frames = None
-        self.infos = None
+        self.video_path = None
 
-    def reset(self):
+    def reset(self, video_path):
+        self.video_path = video_path
         self.frames = []
         self.infos = {}
 
-    def extract_frame(self,
-                      video_path: str) -> Tuple["frames", "info"]:
-        assert self.frames is not None and self.frames == [], "please call reset first"
-        cap = cv2.VideoCapture(video_path)
+    def extract_frame(self) -> Tuple["frames", "info"]:
+        assert self.video_path is not None and self.frames == [], "please call reset first"
+        cap = cv2.VideoCapture(self.video_path)
         # get infos
         self.infos["fps"] = cap.get(cv2.CAP_PROP_FPS)
         self.infos["frame_shape"] = (cap.get(cv2.CAP_PROP_FRAME_WIDTH),
@@ -40,12 +39,12 @@ class TestCapturer(TestCase):
     def test_reset(self):
         print(
             f"--------------------{self.tested_name} test reset--------------------")
-        self.cap.reset()
+        test_video_path = "my_unittest/test.mp4"
+        self.cap.reset(test_video_path)
 
     def test_extract_frame(self):
         print(
             f"--------------------{self.tested_name} test extract_frame--------------------")
-        test_video_path = "my_unittest/test.mp4"
-        frames, infos = self.cap.extract_frame(test_video_path)
+        frames, infos = self.cap.extract_frame()
         print(f"frame length: {len(frames)}")
         print(infos)

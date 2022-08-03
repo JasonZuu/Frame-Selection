@@ -29,10 +29,11 @@ class TestCritor(TestCase):
         print(
             f"--------------------{self.tested_name} test reset--------------------")
         test_video_path = "my_unittest/test.mp4"
-        self.cap.reset()
-        frames, infos = self.cap.extract_frame(test_video_path)
-        self.scorer.reset(frames, infos, group_size=24, resize_shape=(64, 64))
-        scores = self.scorer.score_frame(sort=True, unitized=True)
+        self.cap.reset(test_video_path)
+        frames, infos = self.cap.extract_frame()
+        self.scorer.reset(frames, infos)
+        scores = self.scorer.score_frame(
+            group_size=24, resize_shape=(64, 64), sort=True, unitized=True)
         self.selector.reset(frames, scores)
         frames = self.selector.select_frames(select_num=10, reverse=False)
         self.critor.reset(frames)

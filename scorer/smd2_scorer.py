@@ -19,13 +19,17 @@ class SMD2Scorer(BaseScorer):
         self.smd2_conv = self.smd2_conv.to(self.device)
         self.transform = transforms.ToTensor()
 
-    def score_frame(self, sort: bool = True, unitized: bool = True) -> list:
+    def score_frame(self,
+                    group_size: int = 1,
+                    resize_shape: tuple = (64, 64),
+                    sort: bool = True,
+                    unitized: bool = True) -> list:
         assert self.scores is not None and self.scores == [], "please call reset first"
 
         frame_count = int(len(self.frames))
         for i_frame in range(frame_count):
             frame = cv2.cvtColor(self.frames[i_frame], cv2.COLOR_BGR2GRAY)
-            frame = cv2.resize(frame, self.resize_shape)
+            frame = cv2.resize(frame, resize_shape)
             frame = self.transform(frame)
             frame = frame.to(self.device)
 
