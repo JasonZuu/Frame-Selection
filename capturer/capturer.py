@@ -3,6 +3,7 @@ import cv2
 import numpy as np
 from typing import Tuple
 from unittest import TestCase
+import os
 
 
 class Capturer:
@@ -17,10 +18,13 @@ class Capturer:
     def extract_frame(self) -> Tuple["frames", "info"]:
         assert self.video_path is not None and self.frames == [], "please call reset first"
         cap = cv2.VideoCapture(self.video_path)
+        
         # get infos
         self.infos["fps"] = cap.get(cv2.CAP_PROP_FPS)
         self.infos["frame_shape"] = (cap.get(cv2.CAP_PROP_FRAME_WIDTH),
                                      cap.get(cv2.CAP_PROP_FRAME_HEIGHT))  # (width, height)
+        self.infos["video_name"], _ = os.path.splitext(os.path.basename(self.video_path))
+
         # get frames
         while True:
             ret, frame = cap.read()

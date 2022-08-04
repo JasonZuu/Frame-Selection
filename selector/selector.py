@@ -2,6 +2,8 @@ import cv2
 import numpy as np
 from typing import Optional, Callable, Union
 from unittest import TestCase
+from pathlib import Path
+import os
 
 
 class Selector:
@@ -9,11 +11,11 @@ class Selector:
         super().__init__()
         self.frames = None
         self.scores = None
+        self.selected_frames:dict = None # {idx: frame}
 
     def reset(self,
               frames: list,
               scores: list):
-        assert len(frames) == len(scores)
         self.frames = frames
         self.scores = scores
 
@@ -23,6 +25,7 @@ class Selector:
         assert self.frames is not None, "please call reset first"
 
         wanted_frames = []
+        select_num = int(select_num) if select_num >= 1 else select_num
 
         if isinstance(select_num, int):
             select_count = select_num
@@ -43,9 +46,23 @@ class Selector:
             wanted_frame = self.frames[idx]
             wanted_frames.append(wanted_frame)
 
+        self.selected_frames = {f"{idx}": self.frames[idx] for idx in wanted_idxs}
+
         return wanted_frames
+    
+    def export_frame(self, export_dir:str) -> list:
+        assert self.selected_frames is not None, "please select frame first"
 
+        export_paths = []
 
+        for frame_idx, frame in self.selected_frames.items():
+            Path(export_dir).mkdir(parents=True, exist_ok=True)
+            export_path = os.path.join(export_dir, f"{frame_idx}.jpg")
+            cv2.imwrite(export_path, frame)
+            export_paths.append(export_path)
+        
+        return export_paths
+        
 class TestSelector(TestCase):
     def __init__(self, methodName: str, selector: Selector, scorer: Callable, cap: Callable) -> None:
         super().__init__(methodName)
@@ -70,3 +87,9 @@ class TestSelector(TestCase):
             f"--------------------{self.tested_name} test select_frame--------------------")
         frames = self.selector.select_frame(select_num=10, reverse=False)
         self.assertEqual(len(frames), 10)
+    
+    def test_export_frame(self):
+        print(
+            f"--------------------{self.tested_name} test export_frame--------------------")
+        export_paths = self.selector.export_frame(export_dir="data")
+        print(export_paths[:5])
