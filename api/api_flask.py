@@ -12,7 +12,7 @@ fs_abstract = FrameSelectionAbstract()
 
 
 # upload
-@app.route('/fs_backend/reset_help', methods=["POST"])
+@app.route('/fs_backend/reset_help', methods=["GET","POST"])
 def reset_help():
     try:
         keys_info = fs_abstract.reset(help_mode=True)
