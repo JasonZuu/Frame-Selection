@@ -24,17 +24,38 @@ This project is for selecting frame of all kinds of videos based on multiple fra
 
 1.  Clone the specific branchs with
 ```
+# bash
 git clone https://github.com/JasonZuu/Frame-Selection.git
 ```
-2.  Move to the program directory with
+1. import the abstact class.
 ```
-cd ./Frame-Selection
+# python
+from frame_selection import FrameSelectionAbstract
 ```
-3. Run the demo.py file directly in your python IDE or in the shell with
+3. Call functions of FrameSelectionAbstract to do whatever you want. 
 ```
-python demo.py
+# python
+fs_abstract = FrameSelectionAbstract()
+
+# check the scorers and critor you can work with
+keys_infos = fs_abstract.reset(help_mode=True)
+print(keys_infos)
+
+# reset the FS
+fs_abstract.reset(video_path="my_unittest/test.mp4")
+
+# score frames
+scores = fs_abstract.score(group_size=24, resize_shape=(64,64))
+print(scores[:10])
+
+# select frames
+selected_frames, selection_score = fs_abstract.select(select_num=10)
+print(selection_score)
+
+# export frames
+frame_paths = fs_abstract.export(export_dir="data")
+print(frame_paths[:5])
 ```
-4. Change the varibale in demo.py and run it again.
 
 ### More Flexible Way
 

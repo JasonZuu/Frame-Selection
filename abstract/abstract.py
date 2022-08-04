@@ -20,7 +20,7 @@ class FrameSelectionAbstract:
 
     def reset(self,
               video_path: str = None,
-              scorer_key: str = "ssim",
+              scorer_key: str = "uniform",
               critor_key: str = "intuitive",
               help_mode: bool = False):
         if help_mode:
