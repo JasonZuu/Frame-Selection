@@ -2,8 +2,9 @@ from flask import Flask, request
 import json
 from unittest import TestCase
 import requests
+from flask_cors import cross_origin
 from requests.compat import urljoin
-
+import json
 from abstract import FrameSelectionAbstract
 
 __all__ = ["app", "TestAPI"]
@@ -29,10 +30,17 @@ def reset_help():
 
 
 @app.route('/fs_backend/reset', methods=["POST"])
+# @cross_origin()  # 跨域注解
 def reset():
-    video_path = request.form.get('video_path')
-    scorer_key = request.form.get('scorer_key')
-    critor_key = request.form.get('critor_key')
+
+    # video_path = request.form.get('video_path')
+    # scorer_key = request.form.get('scorer_key')
+    # critor_key = request.form.get('critor_key')
+
+    video_path = request.get_json()[0]['video_path']
+    scorer_key = request.get_json()[0]["scorer_key"]
+    critor_key = request.get_json()[0]["critor_key"]
+
     try:
         fs_abstract.reset(video_path=video_path,
                           scorer_key=scorer_key,
@@ -40,18 +48,23 @@ def reset():
                           help_mode=False)
         res = {"is_success": True,
                "message": ''}
+
     except Exception as e:
         res = {"is_success": False,
                "message": str(e)}
+    print(res)
     return json.dumps(res)
-
 
 @app.route('/fs_backend/score', methods=["POST"])
 def score():
-    group_size = int(request.form.get('group_size'))
-    resize_shape = eval(request.form.get('resize_shape'))
-    sort = bool(request.form.get('sort'))
-    unitized = bool(request.form.get('unitized'))
+    # group_size = int(request.form.get('group_size'))
+    # resize_shape = eval(request.form.get('resize_shape'))
+    # sort = bool(request.form.get('sort'))
+    # unitized = bool(request.form.get('unitized'))
+    group_size = int(request.get_json()[0]["group_size"])
+    resize_shape = eval(request.get_json()[0]["resize_shape"])
+    sort = bool(request.get_json()[0]["sort"])
+    unitized = bool(request.get_json()[0]["unitized"])
     try:
         scores = fs_abstract.score(group_size=group_size,
                                     resize_shape=resize_shape,
@@ -61,17 +74,20 @@ def score():
                 "message": '',
                 "frame_score": scores
                 }
+        print(res)
     except Exception as e:
         res = {"is_success": False,
                "message": str(e),
                "frame_score": None
                }
+        print(res)
     return json.dumps(res)
 
 
 @app.route('/fs_backend/select', methods=["POST"])
 def select():
-    select_num = float(request.form.get('select_num'))
+    # select_num = float(request.form.get('select_num'))
+    select_num = float(request.get_json()[0]["select_num"])
     try:
         frames, selection_score = fs_abstract.select(
             select_num=select_num, reverse=False)
@@ -79,17 +95,20 @@ def select():
                "message": '',
                "selection_score": selection_score
                }
+
     except Exception as e:
         res = {"is_success": False,
                "message": str(e),
                "selection_score": None
                }
+    print(res)
     return json.dumps(res)
 
 
 @app.route('/fs_backend/export', methods=["POST"])
 def export():
-    export_dir = request.form.get("export_dir")
+    export_dir = request.get_json()[0]["export_dir"]
+    # export_dir = request.form.get("export_dir")
     try:
         frame_paths = fs_abstract.export(export_dir=export_dir)
         res = {"is_success": True,
@@ -101,7 +120,41 @@ def export():
                "message": str(e),
                "frame_paths": None
                }
+
     return json.dumps(res)
+
+@app.route('/fs_backend', methods=["POST"])
+@cross_origin()  # 跨域注解
+def Test():
+    url_prefix = "http://127.0.0.1:10027/"
+
+    video_path = request.get_json()["video_path"]
+    scoreKey = 'uniform';
+    critorKey = 'intuitive';
+    message1 = [{"video_path": video_path, "scorer_key": scoreKey, "critor_key": critorKey}]
+    # message2 = json.dumps(message1)
+    url1 = urljoin(url_prefix, "/fs_backend/reset")
+    requests.post(url=url1,json=message1)
+
+    group_size = 24;
+    resize_shape = '(64, 64)';
+    sort = 'True';
+    unitized = 'True';
+    message2 = [{"group_size": group_size, "resize_shape": resize_shape, "sort": sort, "unitized": unitized}]
+    url2 = urljoin(url_prefix, "/fs_backend/score")
+    requests.post(url=url2, json=message2)
+
+    select_num = 0.1
+    message3 = [{"select_num":select_num}]
+    url3 = urljoin(url_prefix, "/fs_backend/select")
+    requests.post(url=url3, json=message3)
+
+    export_dir = '../../site1/static'
+    message4 = [{"export_dir": export_dir}]
+    url4 = urljoin(url_prefix, "/fs_backend/export")
+    res = requests.post(url=url4, json=message4)
+    print(res.text)
+    return res.text
 
 
 class TestAPI(TestCase):
