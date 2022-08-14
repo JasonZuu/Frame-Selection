@@ -1,0 +1,508 @@
+﻿<!doctype html>
+<html lang="zxx">
+    <head>
+        <!-- Required Meta Tags -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+        <!-- Owl Carousel CSS -->
+        <link rel="stylesheet" href="../static/css/owl.theme.default.min.css">
+        <link rel="stylesheet" href="../static/css/owl.carousel.min.css">
+        <!-- Magnific Popup CSS -->
+        <link rel="stylesheet" href="../static/css/magnific-popup.min.css">
+        <!-- Animate Min CSS -->
+        <link rel="stylesheet" href="../static/css/animate.min.css">
+        <!-- Boxicons CSS --> 
+        <link rel="stylesheet" href="../static/css/boxicons.min.css">
+        <!-- Flaticon CSS -->
+        <link rel="stylesheet" href="../static/fonts/flaticon.css">
+        <!-- Meanmenu CSS -->
+        <link rel="stylesheet" href="../static/css/meanmenu.min.css">
+        <!-- Style CSS -->
+        <link rel="stylesheet" href="../static/css/style.css">
+        <!-- Responsive CSS -->
+        <link rel="stylesheet" href="../static/css/responsive.css">
+        <link rel="stylesheet" href="../static/css/fileinput.min.css">
+        <!-- import Vue before Element -->
+  <!--引入element-ui的样式-->
+        <link rel="stylesheet" href="../static/css/http_unpkg.com_element-ui_lib_theme-chalk_index.css">
+
+        <!-- Title -->
+
+        <title>基于计算机视觉的视频帧选择平台</title>
+
+        <!-- Favicon -->
+
+
+
+    </head>
+
+    <body>
+    <div id="app">
+        <!-- Start Preloader -->
+        <div class="preloader">
+            <div class="preloader-wave"></div>
+        </div>
+        <!-- End Preloader -->
+
+        <!-- Header Area -->
+
+        <!-- End Header Area -->
+
+        <!-- Start Navbar Area -->
+        <div class="navbar-area">
+            <!-- Menu For Mobile Device -->
+            <div class="mobile-nav">
+                <a href="index.html" class="logo">
+                    <img src="../static/img/707D7C03248A1E8A8E7303F5D0DEC6372.jpg" alt="Logo">
+                </a>
+            </div>
+
+            <!-- Menu For Desktop Device -->
+            <div class="main-nav top-nav">
+                <div class="container">
+                    <nav class="navbar navbar-expand-md navbar-light ">
+
+
+                        <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                            <ul class="navbar-nav m-auto">
+                                <li class="nav-item">
+                                    <a href="#introduction" class="nav-link">
+                                        Introduction
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#try" class="nav-link">
+                                        Try
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="#service" class="nav-link">
+                                        Purpose
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#development" class="nav-link">
+                                        Development
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- End Navbar Area -->
+        
+        <!-- Banner Area -->
+        <div class="banner-area">
+            <div class="container">
+                <div class="banner-into">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <div class="banner-content">
+                                <h1>Frame Selection Strategy For Videos</h1>
+                                <p>
+                                    Aims at accerlating the pre-processing step of Computer Vision works, we integrated different frame selection policies and developed this flexible and fast frame selection lab.
+                                </p>
+    
+                                <div class="banner-content-btn">
+                                    <a href="#try" class="learn-btn">Try It</a>
+
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-lg-5">
+                            <div class="banner-img-2">
+                                <img src="../static/img/home1.jpg" alt="Banner Images">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="home-shape">
+                <div class="shape1">
+                    <img src="../static/img/shape/1.png" alt="shape">
+                </div>
+                <div class="shape2">
+                    <img src="../static/img/shape/2.png" alt="shape">
+                </div>
+                <div class="shape3">
+                    <img src="../static/img/shape/3.png" alt="shape">
+                </div>
+                <div class="shape4">
+                    <img src="../static/img/shape/4.png" alt="shape">
+                </div>
+                <div class="shape5">
+                    <img src="../static/img/shape/5.png" alt="shape">
+                </div>
+                <div class="shape6">
+                    <img src="../static/img/shape/6.png" alt="shape">
+                </div>
+                <div class="shape7">
+                    <img src="../static/img/shape/3.png" alt="shape">
+                </div>
+            </div>
+        </div>
+
+
+        <!-- About Area End -->
+        
+       <div class="row" id="try" style="margin-top: 3%">
+            <div class="section-title text-center" style="margin-bottom: 2%">
+                    <span>Try It</span>
+                    <h2>Upload a video and receive the selected frames</h2>
+                    <p>
+                        It is a useful tool for extracting frame from videos in a flexible way.
+                    </p>
+            </div>
+            <div class="col-lg-6">
+                    <div class="card" style="height: 20vw;width:35vw;margin-left: 13vw">
+            <el-upload
+                class="upload-demo"
+                ref="upload"
+                drag
+                action="http://127.0.0.1:8080/upload"
+                :auto-upload="true"
+                :on-success="handleSuccess"
+                size="medium"
+                style="text-align: center;margin-top: 10%"
+
+            >
+              <i class="el-icon-upload"></i>
+              <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+              <div class="el-upload__tip" slot="tip" style="text-align: center">只能上传mp4文件</div>
+            </el-upload>
+
+                    </div>
+            </div>
+            <div class="col-lg-6">
+                    <div class="card" style="height: 20vw;width:35vw;margin-right: 15vw;margin-left: 1vw" id="carousel">
+                  <div class="waitupload" style="color:#aaa;font-size:1.6em;text-align:center;margin-top: 20%;cursor:default;"></div>
+
+
+      <!--图片的容器-->
+
+                        <!--<el-carousel :interval="4000" type="card" height="180px">
+      <el-carousel-item
+          v-for="item in img_list"
+          :key="item"
+          :autoplay="true"
+        >
+          <el-image
+            style="width: 100%; height: 80%;margin-top: 10%"
+            :src="item"
+            :preview-src-list="img_list"
+          >
+          </el-image>
+        </el-carousel-item>
+  </el-carousel>-->
+
+
+
+            </div>
+       </div>
+
+
+        <!-- Portfolio Area -->
+        <section class="portfolio-area portfolio-mt pt-100 pb-70">
+            <div class="container" style="margin-top: -8%">
+                <div class="section-title text-center">
+                    <span>Our Purposes</span>
+                    <h2>Aims at accerlating the pre-processing step of Computer Vision works</h2>
+                    <p>
+
+                    </p>
+                </div>
+                <div class="portfolio-slider pt-45 owl-carousel owl-theme">
+                    <div class="portfolio-item">
+                        <div class="portfolio-img">
+
+                                <img src="../static/img/portfolio/1.jpg" alt="Portfolio Images">
+
+
+                            <div class="portfolio-content">
+                                <h3>tool for extracting frame from videos</h3>
+                                <i class='bx bxs-chevron-right'></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item">
+                        <div class="portfolio-img">
+                                <img src="../static/img/portfolio/2.jpg" alt="Portfolio Images">
+                            <div class="portfolio-content">
+                                <h3>architecture follow Registry Mode</h3>
+                                <i class='bx bxs-chevron-right'></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item">
+                        <div class="portfolio-img">
+
+                                <img src="../static/img/portfolio/3.jpg" alt="Portfolio Images">
+
+
+                            <div class="portfolio-content">
+                                <h3>Visuable   exhibition   of   the   selection   result</h3>
+                                <i class='bx bxs-chevron-right'></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-item">
+                        <div class="portfolio-img">
+
+                                <img src="../static/img/portfolio/4.jpg" alt="Portfolio Images">
+
+
+                            <div class="portfolio-content">
+                                <h3>accerlating the pre-processing step</h3>
+                                <i class='bx bxs-chevron-right'></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Portfolio Area End -->
+
+
+
+
+
+    
+
+        <!-- Blog Area -->
+        <div class="blog-area pb-70">
+            <div class="container" id="development" style="margin-top: -2%">
+                <div class="section-title text-center">
+                    <span>Development</span>
+                    <h2>Our Development Plan</h2>
+
+                </div>
+                <div class="row pt-45">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="blog-card">
+                            <div class="blog-img">
+                                <a href="blog-details.html">
+                                    <img src="../static/img/blog/1.jpg" alt="Blog Images">
+                                </a>
+                            </div>
+                            <div class="blog-content">
+                                <div class="blog-tag">
+                                    <a href="#"><span>Evaluation</span></a>
+                                </div>
+                                <a>
+                                    <h3>Develop evaluation methods for each strategy</h3>
+                                </a>
+                                <a href="blog-details.html" class="read-btn">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="blog-card">
+                            <div class="blog-img">
+                                <a>
+                                    <img src="../static/img/blog/2.jpg" alt="Blog Images">
+                                </a>
+                            </div>
+                            <div class="blog-content">
+                                <div class="blog-tag">
+                                    <a href="#"><span>Api</span></a>
+                                </div>
+                                <a>
+                                    <h3>Develop API and API document</h3>
+                                </a>
+                                <a href="#" class="read-btn">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0">
+                        <div class="blog-card">
+                            <div class="blog-img">
+                                <a>
+                                    <img src="../static/img/blog/3.jpg" alt="Blog Images">
+                                </a>
+                            </div>
+                            <div class="blog-content">
+                                <div class="blog-tag">
+                                    <a href="#"><span>Strategy</span></a>
+                                </div>
+                                <a>
+                                    <h3>Develop OOD-based scores and strategy</h3>
+                                </a>
+                                <a href="#" class="read-btn">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Blog Area End -->
+
+        <!-- Subscribe Area -->
+
+        <!-- Subscribe Area End -->
+        
+        <!-- Footer Area Another -->
+        <footer class="footer-area-another">
+
+            <div class="footer-bottom-2">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12">
+                            <div class="bottom-text-2 text-center">
+                                <p>
+                                    Copyright ©2021 blackpig. All Rights Reserved by blackpig
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Footer Area End -->
+
+</div>
+         <!-- Jquery Min JS -->
+        <script src="../static/js/jquery-3.5.0.min.js"></script>
+        <!-- Bootstrap Bundle Min JS -->
+        <script src="../static/js/bootstrap.bundle.min.js"></script>
+        <!-- Meanmenu JS -->
+        <script src="../static/js/meanmenu.min.js"></script>
+        <!-- Owl Carousel JS -->
+        <script src="../static/js/owl.carousel.min.js"></script>
+        <!-- Magnific Popup JS -->
+        <script src="../static/js/jquery.magnific-popup.min.js"></script>
+        <!-- Wow JS -->
+        <script src="../static/js/wow.min.js"></script>
+        <!-- Ajaxchimp Min JS -->
+        <script src="../static/js/jquery.ajaxchimp.min.js"></script>
+        <!-- Form Validator Min JS -->
+        <script src="../static/js/form-validator.min.js"></script>
+        <!-- Contact Form JS -->
+        <script src="../static/js/contact-form-script.js"></script>
+        <!-- Custom JS -->
+        <script src="../static/js/custom.js"></script>
+        <!--<script src="../../assets/js/fileinput.js"></script>
+        <script src="../../assets/js/zh.js"></script>-->
+        <!-- 必须先引入vue，再引入elementui -->
+        <script src="../static/js/http_cdn.jsdelivr.net_npm_vue@2.5.17_dist_vue.js"></script>
+        <!-- 引入elementui组件库-->
+        <script src="../static/js/http_unpkg.com_element-ui_lib_index.js"></script>
+        <script src="../static/js/require.js"></script>
+        <script src="../static/js/app.js"></script>
+
+
+        <script>
+
+
+            $(".waitupload").html("Waiting For Upload");
+
+            new Vue({
+                name:'app',
+                el:'#app',
+
+                data() {
+
+					return {
+						fileData: new FormData(),
+
+
+
+					};
+				},
+                methods: {
+                     handleSuccess(res) {
+                        console.log(res)
+                        $(".waitupload").remove();
+                        postService(res);
+
+
+
+                }
+
+             }});
+            var xhr1 = new XMLHttpRequest();
+            async function postService(res){
+
+                        var url1 ="http://127.0.0.1:10027/fs_backend";
+                        xhr1.open("POST", url1, true);
+                        xhr1.setRequestHeader("Content-Type","application/json");
+
+                        var videoPath = '../../site1/upload/video/'+res;
+                        message = {"video_path":videoPath};
+                        xhr1.send(JSON.stringify(message))
+                        xhr1.addEventListener('load', reqListener)
+
+
+
+            }
+             function reqListener() {
+
+      var jsonData=JSON.parse(this.responseText)
+      var routeData=jsonData['frame_paths']
+
+      var imgHtml=''
+      for(var route in routeData){
+          var Route='../'+routeData[route].split('/')[3]
+
+          var imgRoute=Route.replace(/\\/g,'/')
+
+
+          if(route==0){
+
+              imgHtml='<div class="carousel-item active">'+
+      '<img src="'+imgRoute+'" class="d-block" style="background-size: auto">'+
+    '</div>'
+
+          }
+          else {
+               imgHtml=imgHtml+'<div class="carousel-item">'+
+      '<img src="'+imgRoute+'" class="d-block" style="background-size: auto">'+
+    '</div>'
+          }
+      }
+       var d = document.getElementById('carousel');
+                        d.innerHTML= '<div id="demo" class="carousel slide" data-bs-ride="carousel">'+
+  '<div class="carousel-inner">'+imgHtml+
+
+
+  '</div>'+
+  '<button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">'+
+    '<span class="carousel-control-prev-icon">'+'</span>'+
+  '</button>'+
+  '<button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">'+
+    '<span class="carousel-control-next-icon">'+'</span>'+
+  '</button>'+
+'</div>'
+
+    }
+
+
+
+        </script>
+    </div>
+    </body>
+</html>
+    <style>
+  .el-carousel__item h3 {
+    color: #475669;
+    font-size: 14px;
+    opacity: 0.75;
+    line-height: 200px;
+    margin: 0;
+  }
+
+
+</style>
