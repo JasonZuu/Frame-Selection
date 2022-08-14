@@ -57,7 +57,9 @@ frame_paths = fs_abstract.export(export_dir="data")
 print(frame_paths[:5])
 ```
 
-### More Flexible Way
+### API
+All functions of the FS has been wrapper by abstract.FrameSelectionAbstract . 
+
 
 
 ## Document
@@ -65,7 +67,7 @@ print(frame_paths[:5])
 ![Relationship between different modules](img/fs_modules.jpg)
 
 
-### API
+### 
 
 
 
